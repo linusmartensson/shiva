@@ -1,0 +1,290 @@
+#pragma once
+#include"stdafx.h"
+#include"utils.h"
+#include"state.h"
+
+#ifndef WGL_ARB_create_context
+#define WGL_ARB_create_context 1
+typedef HGLRC (WINAPI * PFNWGLCREATECONTEXTATTRIBSARBPROC) (HDC hDC, HGLRC hShareContext, const int *attribList);
+#define WGL_CONTEXT_MAJOR_VERSION_ARB		0x2091
+#define WGL_CONTEXT_MINOR_VERSION_ARB		0x2092
+#define WGL_CONTEXT_LAYER_PLANE_ARB		0x2093
+#define WGL_CONTEXT_FLAGS_ARB			0x2094
+#define WGL_CONTEXT_PROFILE_MASK_ARB		0x9126
+#define WGL_CONTEXT_DEBUG_BIT_ARB		0x0001
+#define WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB	0x0002
+#define WGL_CONTEXT_CORE_PROFILE_BIT_ARB	0x00000001
+#define WGL_CONTEXT_COMPATIBILITY_PROFILE_BIT_ARB 0x00000002
+#endif
+
+typedef const char * (WINAPI * PFNWGLGETEXTENSIONSSTRINGARBPROC) (HDC hdc);
+
+namespace shiva {
+	static int isExtensionSupported( HDC hdc, const char *extension ) {
+		PFNWGLGETEXTENSIONSSTRINGARBPROC wglGetExtensionsStringARB = (PFNWGLGETEXTENSIONSSTRINGARBPROC) wglGetProcAddress("wglGetExtensionsStringARB");
+		if ( wglGetExtensionsStringARB == NULL )
+		{
+		  return FALSE;
+		}
+		const char *pWglExtString = wglGetExtensionsStringARB( hdc );
+		return ( pWglExtString != NULL ) && ( strstr(pWglExtString, extension) != NULL );
+	}
+	enum FULLSCREEN_MODE{
+		FULLSCREEN_DISABLED,
+		FULLSCREEN_ENABLED,
+		FULLSCREEN_ENABLED_WITH_DESKTOP_RESOLUTION
+	};
+
+	class core{
+	public:
+		static const unsigned int TICK_TIME = 25;
+		static const unsigned int MAX_LOOPS = 10;
+		
+	private:
+		
+		static unsigned long time0;
+		static unsigned long time1;
+		static unsigned long frameTime;
+		static unsigned long rtime0;
+		static unsigned long rtime1;
+		
+		static state *current;
+		static GLFWmutex mutex;
+		static GLFWcond cond;
+		static GLFWthread thread;
+
+		static bool dying, safe, paused;
+		static uint _width, _height;
+
+		static HGLRC primaryContext;
+		static HDC deviceContext;
+		static HGLRC secondaryContext;
+
+		static std::vector<DWORD> poffset;
+		static std::vector<DWORD> roffset;
+
+		static std::set<int> downkeys;
+
+		static void GLFWCALL auxiliaryThread( void* arg );
+		static void physicsTick();
+		static void update();
+		static bool stateUpdate();
+		static void reshape(int w, int h);
+		static void start();
+		static int GLFWCALL fixclose(){
+			core::stop();
+			return GL_FALSE;
+		}
+	public:
+
+		static bool down(int key){
+			return downkeys.count(key)>0;
+		}
+
+		//Only makes sense in render()
+		static float renderInterpolation(){
+			float percentWithinTick = float(rtime1 - rtime0)/TICK_TIME;
+			percentWithinTick = percentWithinTick<1.f?percentWithinTick:1.f;
+			return percentWithinTick;
+		}
+
+		//Get absolute time counting from startup.
+		static unsigned int time() {
+			//Instead of separate renderTime/physicsTime, just check what thread we're on.
+			if(glfwGetThreadID()==thread)
+				return time0;
+			else
+				return rtime0;
+		}
+		static uint width(){
+			return _width;
+		}
+		static uint height(){
+			return _height;
+		}
+		static HGLRC auxiliaryRenderingContext(){
+			return secondaryContext;
+		}
+		static HGLRC primaryRenderingContext(){
+			return primaryContext;
+		}
+
+		static void swap(state *newstate);
+		static void stop();
+		
+		static int wheelpos;
+		static int lx, ly;
+		static bool changed;
+
+		static void winput(int pos){
+			if(current) current->winput(wheelpos > pos?false:true);
+			wheelpos = pos;
+			changed = true;
+		}
+		static void binput(int btn, int state){
+			if(current) current->binput(btn, state==GLFW_PRESS);
+			changed = true;
+		}
+		static void minput(int x, int y){
+			if(current) current->minput(x-lx,y-ly);
+			lx = x;
+			ly = y;
+			changed = true;
+		}
+		static void kinput(int key, int state){
+			if(state==GLFW_PRESS) downkeys.insert(key); else downkeys.erase(key);
+			if(current) current->kinput(key,state==GLFW_PRESS);
+			changed = true;
+		}
+		static void cinput(int key, int state){
+			if(state==GLFW_PRESS) downkeys.insert(key); else downkeys.erase(key);
+			if(current) current->cinput(key,state==GLFW_PRESS);
+			changed = true;
+		}
+		template<typename InitialState>
+		static void run(
+			int argc,
+			char **argv,
+			std::string windowname = "Shiva", 
+			FULLSCREEN_MODE fullScreen = FULLSCREEN_DISABLED, 
+			int w = 1280, 
+			int h = 720,
+			int fsaaLevel = 0,
+			bool vsync = 1,
+			int major = 3,
+			int minor = 3);
+	};
+}
+
+template<typename InitialState>
+void shiva::core::run(
+	int argc,
+	char **argv,
+	std::string windowname, 
+	FULLSCREEN_MODE fullScreen, 
+	int w, 
+	int h,
+	int fsaaLevel,
+	bool vsync,
+	int major,
+	int minor)
+{
+
+	state *initial = 0;
+
+	//Static data initialization.
+	current = 0;
+	dying = 0;
+	_width = w;
+	_height = h;
+	safe = true;
+	paused = false;
+	mutex = 0;
+	cond = 0;
+	thread = 0;
+	primaryContext = NULL;
+	deviceContext = NULL;
+	secondaryContext = NULL;
+	time0 = 0;
+	time1 = 0;
+	frameTime = 0;
+	rtime0 = 0;
+	rtime1 = 0;
+	GLFWvidmode mode;
+
+	if(major < 3 || major == 3 && minor < 1){
+		std::cout<<"Requested OpenGL version lacks support for shared contexts, aborting."<<std::endl;
+		exit(1);
+	}
+	glfwInit();
+	glfwGetDesktopMode(&mode);
+	glfwOpenWindowHint(GLFW_FSAA_SAMPLES, fsaaLevel);
+	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MAJOR, 3);
+	glfwOpenWindowHint(GLFW_OPENGL_VERSION_MINOR, 3);
+
+	//Fuck the old shit. oldGL is a piece of piss.
+	glfwOpenWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+	glfwOpenWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+	int err = glfwOpenWindow( fullScreen==FULLSCREEN_ENABLED_WITH_DESKTOP_RESOLUTION?mode.Width:w, 
+		fullScreen==FULLSCREEN_ENABLED_WITH_DESKTOP_RESOLUTION?mode.Height:h,
+		mode.RedBits, mode.GreenBits, mode.BlueBits, 8, 
+		32, 0,
+		fullScreen?GLFW_FULLSCREEN:GLFW_WINDOW );
+	if(err == GL_FALSE){
+		std::cout<<"glfwOpenWindow failed, aborting."<<std::endl;
+		exit(1);
+	}
+
+	primaryContext = wglGetCurrentContext();
+	deviceContext = wglGetCurrentDC();
+	secondaryContext = NULL;
+	if(isExtensionSupported(deviceContext, "WGL_ARB_create_context")){
+		int attribs[] =
+		{
+			WGL_CONTEXT_MAJOR_VERSION_ARB, major,
+			WGL_CONTEXT_MINOR_VERSION_ARB, minor,
+			WGL_CONTEXT_FLAGS_ARB, WGL_CONTEXT_FORWARD_COMPATIBLE_BIT_ARB,
+			WGL_CONTEXT_PROFILE_MASK_ARB, WGL_CONTEXT_CORE_PROFILE_BIT_ARB,
+			0
+		};
+		PFNWGLCREATECONTEXTATTRIBSARBPROC swglCreateContextAttribsARB = (PFNWGLCREATECONTEXTATTRIBSARBPROC) wglGetProcAddress( "wglCreateContextAttribsARB" );
+
+		secondaryContext = swglCreateContextAttribsARB(deviceContext, primaryContext, attribs);
+		if(secondaryContext == NULL){
+			std::cout<< "Could not create secondary rendering context, aborting." << std::endl;
+			exit(1);
+		}
+	} else {
+		secondaryContext = wglCreateContext(deviceContext);
+		if(secondaryContext == NULL){
+			std::cout<< "Could not create secondary rendering context, aborting." << std::endl;
+			exit(1);
+		}
+		if(!wglShareLists(primaryContext, secondaryContext)){
+			std::cout<<"Could not share rendering contexts, aborting."<<std::endl;
+			exit(1);
+		}
+	}
+	wglMakeCurrent(deviceContext, primaryContext);
+
+	if (gl3wInit() || !gl3wIsSupported(major,minor)) {
+		std::cout << "gl3wInit failed, aborting." << std::endl;
+		exit(1);
+	}
+	
+	//Lol mouse cursor.
+	glfwDisable(GLFW_MOUSE_CURSOR);
+	glfwEnable(GLFW_KEY_REPEAT);
+	glfwSetWindowTitle(windowname.c_str());
+	glfwSwapInterval(vsync?1:0);
+	glfwSetWindowSizeCallback(core::reshape);
+	glfwSetWindowCloseCallback(core::fixclose);
+	glfwSetKeyCallback(core::kinput);
+	glfwSetCharCallback(core::cinput);
+	glfwSetMousePosCallback(core::minput);
+	glfwSetMouseButtonCallback(core::binput);
+	glfwSetMouseWheelCallback(core::winput);
+	Log::GLErrors("");
+
+	std::cout << "gl3w initialized successfully." << std::endl;
+	std::cout << "OpenGL " << glGetString(GL_VERSION) << " running on " << glGetString(GL_VENDOR) << " " << glGetString(GL_RENDERER) << std::endl;
+	std::cout << "GLSL version: "<<glGetString(GL_SHADING_LANGUAGE_VERSION)<<std::endl;
+	Log::GLErrors("");
+
+	initial = new InitialState();
+
+	shiva::core::swap(initial);
+	current->reshape(_width, _height);
+	start(); //dancing.
+
+	delete initial;
+
+	wglDeleteContext(secondaryContext);
+	
+	glfwEnable(GLFW_MOUSE_CURSOR);
+	glfwTerminate();
+
+	
+	std::cout<<"Shiva de-initialized."<<std::endl;
+}

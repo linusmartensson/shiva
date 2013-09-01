@@ -1,0 +1,520 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release2|Win32">
+      <Configuration>Release2</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{F355149E-34A2-4754-BA5E-B41C16C1C5B5}</ProjectGuid>
+    <RootNamespace>Shiva</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release2|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release2|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release2|Win32'">$(SolutionDir)$(Configuration)\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release2|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release2|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release2|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release2|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release2|Win32'" />
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(KINECTSDK10_DIR)\inc;$(IncludePath)</IncludePath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release2|Win32'">$(KINECTSDK10_DIR)\inc;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(KINECTSDK10_DIR)\lib\x86;$(LibraryPath)</LibraryPath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Release2|Win32'">$(KINECTSDK10_DIR)\lib\x86;$(LibraryPath)</LibraryPath>
+    <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(KINECTSDK10_DIR)\inc;$(IncludePath)</IncludePath>
+    <LibraryPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(KINECTSDK10_DIR)\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\flann\include;C:\Program Files (x86)\Eigen\include;C:\Program Files %28x86%29\PCL 1.6.0\include\pcl-1.6;..\boost_1_48_0;..\dirent;..\gltext;..\freetype-2.4.4\include;.\shiva;.\shiva\toolkit;.;..\glfw-2.7\include;..\gl3w\include;..\OpenCL\inc;..\glm-0.9.1.1;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Programmers API Windows\api\inc;..\freeglut-2.6.0\include;.\state;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;FREEGLUT_STATIC;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <StringPooling>true</StringPooling>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <FloatingPointExceptions>true</FloatingPointExceptions>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>fmodex_vc.lib;OpenCL.lib;libboost_thread-vc100-mt-gd-1_48.lib;Kinect10.lib;flann_cpp_s-gd.lib;flann_s-gd.lib;pcl_apps_debug.lib;pcl_common_debug.lib;pcl_features_debug.lib;pcl_filters_debug.lib;pcl_io_debug.lib;pcl_io_ply_debug.lib;pcl_kdtree_debug.lib;pcl_keypoints_debug.lib;pcl_octree_debug.lib;pcl_registration_debug.lib;pcl_sample_consensus_debug.lib;pcl_search_debug.lib;pcl_segmentation_debug.lib;pcl_surface_debug.lib;pcl_tracking_debug.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\PCL 1.6.0\lib;C:\Program Files (x86)\flann\lib;..\boost_1_48_0\stage\lib;..\OpenCL\lib\Win32;..\glfw-2.7\support\msvc90\Debug;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Programmers API Windows\api\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+      <Profile>true</Profile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\libpng\include;C:\Program Files (x86)\flann\include;C:\Program Files (x86)\Eigen\include;..\boost_1_48_0;..\dirent;..\gltext;..\freetype-2.4.4\include;..\glfw-2.7\include;..\gl3w\include;..\OpenCL\inc;..\glm-0.9.1.1;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Programmers API Windows\api\inc;..\freeglut-2.6.0\include;shiva;shiva\toolkit;C:\Program Files (x86)\PCL 1.6.0\include\pcl-1.6;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Fast</FloatingPointModel>
+      <FloatingPointExceptions>false</FloatingPointExceptions>
+      <StringPooling>true</StringPooling>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <OpenMPSupport>true</OpenMPSupport>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>zlibstatic.lib;libpng15_static.lib;flann_cpp_s.lib;flann_s.lib;OpenCL.lib;freetype244.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;fmodex_vc.lib;libboost_thread-vc100-mt-1_48.lib;Kinect10.lib;pcl_apps_release.lib;pcl_common_release.lib;pcl_filters_release.lib;pcl_features_release.lib;pcl_io_ply_release.lib;pcl_io_release.lib;pcl_kdtree_release.lib;pcl_keypoints_release.lib;pcl_octree_release.lib;pcl_registration_release.lib;pcl_sample_consensus_release.lib;pcl_search_release.lib;pcl_segmentation_release.lib;pcl_surface_release.lib;pcl_tracking_release.lib;pcl_visualization_release.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\zlib\lib;C:\Program Files %28x86%29\libpng\lib;C:\Program Files (x86)\flann\lib;C:\Program Files (x86)\PCL 1.6.0\lib;..\boost_1_48_0\stage\lib;..\freetype-2.4.4\objs\win32\vc2008;..\OpenCL\lib\Win32;..\glfw-2.7\support\msvc90\Release;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Programmers API Windows\api\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>LIBCMT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <TargetMachine>MachineX86</TargetMachine>
+      <TurnOffAssemblyGeneration>false</TurnOffAssemblyGeneration>
+      <AssemblyDebug>false</AssemblyDebug>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release2|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <IntrinsicFunctions>false</IntrinsicFunctions>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>C:\Program Files (x86)\libpng\include;C:\Program Files (x86)\flann\include;C:\Program Files (x86)\Eigen\include;..\boost_1_48_0;..\dirent;..\gltext;..\freetype-2.4.4\include;..\glfw-2.7\include;..\gl3w\include;..\OpenCL\inc;..\glm-0.9.1.1;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Programmers API Windows\api\inc;..\freeglut-2.6.0\include;shiva;shiva\toolkit;C:\Program Files (x86)\PCL 1.6.0\include\pcl-1.6;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <FunctionLevelLinking>false</FunctionLevelLinking>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <FloatingPointExceptions>true</FloatingPointExceptions>
+      <StringPooling>false</StringPooling>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <OpenMPSupport>false</OpenMPSupport>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>zlibstatic.lib;libpng15_static.lib;flann_cpp_s.lib;flann_s.lib;OpenCL.lib;freetype244.lib;kernel32.lib;user32.lib;gdi32.lib;shell32.lib;fmodex_vc.lib;libboost_thread-vc100-mt-1_48.lib;Kinect10.lib;pcl_apps_release.lib;pcl_common_release.lib;pcl_filters_release.lib;pcl_features_release.lib;pcl_io_ply_release.lib;pcl_io_release.lib;pcl_kdtree_release.lib;pcl_keypoints_release.lib;pcl_octree_release.lib;pcl_registration_release.lib;pcl_sample_consensus_release.lib;pcl_search_release.lib;pcl_segmentation_release.lib;pcl_surface_release.lib;pcl_tracking_release.lib;pcl_visualization_release.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files (x86)\zlib\lib;C:\Program Files %28x86%29\libpng\lib;C:\Program Files (x86)\flann\lib;C:\Program Files (x86)\PCL 1.6.0\lib;..\boost_1_48_0\stage\lib;..\freetype-2.4.4\objs\win32\vc2008;..\OpenCL\lib\Win32;..\glfw-2.7\support\msvc90\Release;C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Programmers API Windows\api\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>LIBCMT;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>false</OptimizeReferences>
+      <EnableCOMDATFolding>false</EnableCOMDATFolding>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <TargetMachine>MachineX86</TargetMachine>
+      <TurnOffAssemblyGeneration>false</TurnOffAssemblyGeneration>
+      <AssemblyDebug>true</AssemblyDebug>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\dirent\msdirent.vcxproj">
+      <Project>{c93aa695-3011-4b59-a34c-1896021500b0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\freetype-2.4.4\builds\win32\vc2008\freetype.vcxproj">
+      <Project>{78b079bd-9fc7-4b9e-b4a6-96da0f00248b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\gl3w\gl3w.vcxproj">
+      <Project>{3a0509aa-4b27-4623-a37f-2a1bf00a553e}</Project>
+      <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\glfw-2.7\support\msvc90\GLFW.vcxproj">
+      <Project>{baa85eb9-be33-45fb-b552-0ab3ac4d9ca9}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\gltext\gltext.vcxproj">
+      <Project>{fda56162-1899-44e7-a238-cea7580b549e}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="shiva\state.cpp" />
+    <ClCompile Include="shiva\toolkit\log.cpp" />
+    <ClCompile Include="startup.cpp" />
+    <ClCompile Include="shiva\statics.cpp" />
+    <ClCompile Include="shiva\toolkit\utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="resources\builtins\glsllib\version330.glsl" />
+    <ClInclude Include="state\common\bases\drawpath.h" />
+    <ClInclude Include="state\common\bases\fssplayer.h" />
+    <ClInclude Include="state\common\console.h" />
+    <ClInclude Include="state\miuto\hdr.h" />
+    <ClInclude Include="shiva\toolkit\image.h" />
+    <ClInclude Include="shiva\toolkit\midi.h" />
+    <ClInclude Include="state\animals\particles.h" />
+    <ClInclude Include="state\animals\root.h" />
+    <ClInclude Include="state\animals\tk.h" />
+    <ClInclude Include="state\animals\money.h" />
+    <ClInclude Include="state\animals\house.h" />
+    <ClInclude Include="state\attrax\hdr.h" />
+    <ClInclude Include="state\common\nuisensor.h" />
+    <ClInclude Include="state\common\graph.h" />
+    <ClInclude Include="state\common\graphgen.h" />
+    <ClInclude Include="state\animals\lines.h" />
+    <ClInclude Include="state\animals\particles2.h" />
+    <ClInclude Include="state\common\parametric.h" />
+    <ClInclude Include="state\common\resources.h" />
+    <ClInclude Include="state\animals\stuff.h" />
+    <ClInclude Include="state\animals\wgen.h" />
+    <ClInclude Include="state\dq\root.h" />
+    <ClInclude Include="state\dq\th.h" />
+    <ClInclude Include="state\dq\ti.h" />
+    <ClInclude Include="state\dq\tj.h" />
+    <ClInclude Include="state\dq\tk.h" />
+    <ClInclude Include="state\texturestuff\ift.h" />
+    <ClInclude Include="state\texturestuff\tk.h" />
+    <ClInclude Include="state\texturestuff\upscale.h" />
+    <ClInclude Include="state\partevo\tg.h" />
+    <ClInclude Include="shiva\toolkit\camera.h" />
+    <ClInclude Include="state\common\hdr.h" />
+    <ClInclude Include="state\df\particles.h" />
+    <ClInclude Include="state\df\root.h" />
+    <ClInclude Include="state\df\th.h" />
+    <ClInclude Include="state\partevo\particles.h" />
+    <ClInclude Include="state\partevo\root.h" />
+    <ClInclude Include="shiva\toolkit\fonts.h" />
+    <ClInclude Include="shiva\toolkit\instance.h" />
+    <ClInclude Include="shiva\toolkit\resourcetracker.h" />
+    <ClInclude Include="shiva\toolkit\music.h" />
+    <ClInclude Include="abandoned\state\demo\root.h" />
+    <ClInclude Include="shiva\shiva.h" />
+    <ClInclude Include="shiva\state.h" />
+    <ClInclude Include="abandoned\state\demo\particles.h" />
+    <ClInclude Include="shiva\toolkit\buffers.h" />
+    <ClInclude Include="shiva\toolkit\clengine.h" />
+    <ClInclude Include="shiva\toolkit\framebuffer.h" />
+    <ClInclude Include="shiva\toolkit\log.h" />
+    <ClInclude Include="shiva\toolkit\shaders.h" />
+    <ClInclude Include="shiva\stdafx.h" />
+    <ClInclude Include="shiva\toolkit\texture.h" />
+    <ClInclude Include="shiva\toolkit\utils.h" />
+    <ClInclude Include="shiva\toolkit\varray.h" />
+    <ClInclude Include="state\musiclol\root.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="abandoned\resources\editor\generator\rect.frag" />
+    <None Include="abandoned\resources\editor\wm\wm.frag" />
+    <None Include="resources\statedata\attrax\background3.frag" />
+    <None Include="resources\statedata\animals\clline.cl" />
+    <None Include="resources\statedata\attrax\cube2.frag" />
+    <None Include="resources\statedata\attrax\cube2.geom" />
+    <None Include="resources\statedata\attrax\cube2.vert" />
+    <None Include="resources\statedata\animals\hdr.frag" />
+    <None Include="resources\statedata\animals\house\clline.cl" />
+    <None Include="resources\statedata\animals\house\minimal1.frag" />
+    <None Include="resources\statedata\animals\house\minimal1.geom" />
+    <None Include="resources\statedata\animals\house\minimal1.vert" />
+    <None Include="resources\statedata\animals\house\minimal2.frag" />
+    <None Include="resources\statedata\animals\house\minimal2.geom" />
+    <None Include="resources\statedata\animals\house\minimal2.vert" />
+    <None Include="resources\statedata\animals\house\output.frag" />
+    <None Include="resources\statedata\animals\house\particleengine.cl" />
+    <None Include="resources\statedata\animals\house\test.frag" />
+    <None Include="resources\statedata\animals\lines\clline.cl" />
+    <None Include="resources\statedata\animals\minimal1.frag" />
+    <None Include="resources\statedata\animals\minimal1.geom" />
+    <None Include="resources\statedata\animals\minimal1.vert" />
+    <None Include="resources\statedata\animals\minimal2.frag" />
+    <None Include="resources\statedata\animals\minimal2.geom" />
+    <None Include="resources\statedata\animals\minimal2.vert" />
+    <None Include="resources\statedata\animals\minimal4.frag" />
+    <None Include="resources\statedata\animals\minimal4.geom" />
+    <None Include="resources\statedata\animals\minimal4.vert" />
+    <None Include="resources\statedata\animals\lines\output.frag" />
+    <None Include="resources\statedata\animals\money\clline.cl" />
+    <None Include="resources\statedata\animals\money\minimal1.frag" />
+    <None Include="resources\statedata\animals\money\minimal1.geom" />
+    <None Include="resources\statedata\animals\money\minimal1.vert" />
+    <None Include="resources\statedata\animals\money\minimal2.frag" />
+    <None Include="resources\statedata\animals\money\minimal2.geom" />
+    <None Include="resources\statedata\animals\money\minimal2.vert" />
+    <None Include="resources\statedata\animals\money\output.frag" />
+    <None Include="resources\statedata\animals\money\test.frag" />
+    <None Include="resources\statedata\animals\output.frag" />
+    <None Include="resources\statedata\attrax\camera.0" />
+    <None Include="resources\statedata\attrax\cube1.frag" />
+    <None Include="resources\statedata\attrax\cube1.geom" />
+    <None Include="resources\statedata\attrax\cube1.vert" />
+    <None Include="resources\statedata\animals\save\output.frag" />
+    <None Include="resources\statedata\animals\particleengine.cl" />
+    <None Include="resources\statedata\animals\save\particleengine.cl" />
+    <None Include="resources\statedata\animals\save\testg.frag" />
+    <None Include="resources\statedata\animals\save\testf.frag" />
+    <None Include="resources\statedata\animals\save\teste.frag" />
+    <None Include="resources\statedata\animals\save\testd.frag" />
+    <None Include="resources\statedata\animals\save\testc.frag" />
+    <None Include="resources\statedata\animals\save\testb.frag" />
+    <None Include="resources\statedata\animals\save\testa.frag" />
+    <None Include="resources\statedata\animals\test.frag" />
+    <None Include="resources\statedata\animals\testh.frag" />
+    <None Include="resources\statedata\attrax\DemoLINUS.mp3" />
+    <None Include="resources\statedata\attrax\hdr.frag" />
+    <None Include="resources\statedata\attrax\background.frag" />
+    <None Include="resources\statedata\attrax\logo1.png" />
+    <None Include="resources\statedata\attrax\logo2.png" />
+    <None Include="resources\statedata\attrax\path1.frag" />
+    <None Include="resources\statedata\attrax\path1.geom" />
+    <None Include="resources\statedata\attrax\path1.vert" />
+    <None Include="resources\statedata\attrax\road.frag" />
+    <None Include="resources\statedata\attrax\overlay.frag" />
+    <None Include="resources\statedata\attrax\background2.frag" />
+    <None Include="resources\statedata\attrax\whiteout.frag" />
+    <None Include="resources\statedata\attrax\path2.frag" />
+    <None Include="resources\statedata\attrax\path2.geom" />
+    <None Include="resources\statedata\attrax\path2.vert" />
+    <None Include="resources\statedata\attrax\overlay2.frag" />
+    <None Include="resources\statedata\attrax\path3.frag" />
+    <None Include="resources\statedata\attrax\path3.geom" />
+    <None Include="resources\statedata\attrax\path3.vert" />
+    <None Include="resources\statedata\df\triangle.geom" />
+    <None Include="resources\statedata\df\cube.geom" />
+    <None Include="resources\statedata\df\pt.vert" />
+    <None Include="resources\statedata\df\quad.geom" />
+    <None Include="resources\statedata\df\simple.frag" />
+    <None Include="resources\statedata\df\hdrr.frag" />
+    <None Include="resources\fonts\Men Nefer Black.ttf" />
+    <None Include="resources\fonts\MenNefer.ttf" />
+    <None Include="resources\fonts\TECHNOID.TTF" />
+    <None Include="abandoned\resources\cylinderform.cl" />
+    <None Include="abandoned\resources\deformity.cl" />
+    <None Include="abandoned\resources\metablobs.cl" />
+    <None Include="abandoned\resources\metaparticles.cl" />
+    <None Include="abandoned\resources\statedata\dd\minimal.frag" />
+    <None Include="abandoned\resources\statedata\dd\minimal.geom" />
+    <None Include="abandoned\resources\statedata\dd\minimal.vert" />
+    <None Include="abandoned\resources\statedata\dd\minimal1.frag" />
+    <None Include="abandoned\resources\statedata\dd\minimal1.geom" />
+    <None Include="abandoned\resources\statedata\dd\minimal1.vert" />
+    <None Include="abandoned\resources\statedata\dd\minimal2.frag" />
+    <None Include="abandoned\resources\statedata\dd\minimal2.geom" />
+    <None Include="abandoned\resources\statedata\dd\minimal2.vert" />
+    <None Include="abandoned\resources\statedata\dd\minimal3.frag" />
+    <None Include="abandoned\resources\statedata\dd\minimal3.geom" />
+    <None Include="abandoned\resources\statedata\dd\minimal3.vert" />
+    <None Include="abandoned\resources\statedata\dd\outrofont.frag" />
+    <None Include="abandoned\resources\statedata\dd\particleengine.cl" />
+    <None Include="abandoned\resources\pillarparticles.cl" />
+    <None Include="abandoned\resources\pillarworld.cl" />
+    <None Include="abandoned\resources\statedata\dd\t3.cl" />
+    <None Include="abandoned\resources\torus.cl" />
+    <None Include="abandoned\resources\twist.cl" />
+    <None Include="abandoned\resources\statedata\dd\t1.cl" />
+    <None Include="abandoned\resources\jackhammer\outro\outrofont.frag" />
+    <None Include="abandoned\resources\jackhammer\outro\catargas.geom" />
+    <None Include="abandoned\resources\statedata\dd\hdr.frag" />
+    <None Include="abandoned\resources\statedata\dd\minimal4.vert" />
+    <None Include="abandoned\resources\statedata\dd\minimal4.frag" />
+    <None Include="abandoned\resources\statedata\dd\minimal4.geom" />
+    <None Include="abandoned\resources\pipeline\particular\outrofont.frag" />
+    <None Include="abandoned\resources\pipeline\particular\torus.cl" />
+    <None Include="abandoned\resources\pipeline\particular\twist.cl" />
+    <None Include="abandoned\resources\statedata\dd\output.frag" />
+    <None Include="abandoned\resources\test.cl" />
+    <None Include="abandoned\resources\statedata\dd\t2.cl" />
+    <None Include="abandoned\resources\statedata\dd\t4.cl" />
+    <None Include="abandoned\resources\unused\cylinderform.cl" />
+    <None Include="abandoned\resources\unused\deformity.cl" />
+    <None Include="abandoned\resources\pipeline\hdr\output.frag" />
+    <None Include="abandoned\resources\unused\metaparticles.cl" />
+    <None Include="abandoned\resources\unused\metablobs.cl" />
+    <None Include="abandoned\resources\pipeline\particular\minimallines.frag" />
+    <None Include="abandoned\resources\pipeline\particular\minimallines.geom" />
+    <None Include="abandoned\resources\pipeline\particular\minimal.frag" />
+    <None Include="abandoned\resources\pipeline\particular\minimal.geom" />
+    <None Include="abandoned\resources\pipeline\particular\minimal.vert" />
+    <None Include="abandoned\resources\pipeline\particular\particleengine.cl" />
+    <None Include="abandoned\resources\pipeline\particular\pillarworld.cl" />
+    <None Include="abandoned\resources\unused\pillarparticles.cl" />
+    <None Include="resources\builtins\tools.cl" />
+    <None Include="abandoned\resources\statedata\de\de.camera" />
+    <None Include="abandoned\resources\statedata\de\hdr.frag" />
+    <None Include="abandoned\resources\statedata\de\minimal1.frag" />
+    <None Include="abandoned\resources\statedata\de\minimal1.geom" />
+    <None Include="abandoned\resources\statedata\de\minimal1.vert" />
+    <None Include="abandoned\resources\statedata\de\minimal2.frag" />
+    <None Include="abandoned\resources\statedata\de\minimal2.geom" />
+    <None Include="abandoned\resources\statedata\de\minimal2.vert" />
+    <None Include="abandoned\resources\statedata\de\minimal3.frag" />
+    <None Include="abandoned\resources\statedata\de\minimal3.geom" />
+    <None Include="abandoned\resources\statedata\de\minimal3.vert" />
+    <None Include="abandoned\resources\statedata\de\minimal8.frag" />
+    <None Include="abandoned\resources\statedata\de\minimal8.geom" />
+    <None Include="abandoned\resources\statedata\de\minimal8.vert" />
+    <None Include="abandoned\resources\statedata\de\output.frag" />
+    <None Include="abandoned\resources\statedata\de\test.frag" />
+    <None Include="resources\statedata\df\hdr.frag" />
+    <None Include="resources\statedata\dq\0.camera" />
+    <None Include="resources\statedata\dq\clon.act" />
+    <None Include="resources\statedata\dq\clp.cl" />
+    <None Include="resources\statedata\dq\hdr.frag" />
+    <None Include="resources\statedata\dq\Linus.mp3" />
+    <None Include="resources\statedata\dq\set.act" />
+    <None Include="resources\statedata\misc\abc.frag" />
+    <None Include="resources\statedata\miuto\camera.0" />
+    <None Include="resources\statedata\miuto\cube2.frag" />
+    <None Include="resources\statedata\miuto\cube2.geom" />
+    <None Include="resources\statedata\miuto\cube2.vert" />
+    <None Include="resources\statedata\miuto\background2.frag" />
+    <None Include="resources\statedata\misc\testq.frag" />
+    <None Include="resources\statedata\misc\hdr.frag" />
+    <None Include="resources\statedata\df\line.geom" />
+    <None Include="resources\statedata\miuto\background.frag" />
+    <None Include="resources\statedata\miuto\cube1.frag" />
+    <None Include="resources\statedata\miuto\cube1.geom" />
+    <None Include="resources\statedata\miuto\cube1.vert" />
+    <None Include="resources\statedata\miuto\hdr.frag" />
+    <None Include="resources\statedata\miuto\overlay2.frag" />
+    <None Include="resources\statedata\miuto\path1.frag" />
+    <None Include="resources\statedata\miuto\path1.geom" />
+    <None Include="resources\statedata\miuto\path1.vert" />
+    <None Include="resources\statedata\texturestuff\gaussian1.frag" />
+    <None Include="resources\statedata\miuto\overlay1.frag" />
+    <None Include="resources\statedata\miuto\overlay3.frag" />
+    <None Include="resources\statedata\miuto\overlay4.frag" />
+    <None Include="resources\statedata\miuto\overlay5.frag" />
+    <None Include="resources\statedata\miuto\overlay9.frag" />
+    <None Include="resources\statedata\miuto\overlay8.frag" />
+    <None Include="resources\statedata\miuto\overlay7.frag" />
+    <None Include="resources\statedata\miuto\overlay6.frag" />
+    <None Include="resources\statedata\miuto\path2.frag" />
+    <None Include="resources\statedata\miuto\path2.geom" />
+    <None Include="resources\statedata\miuto\path2.vert" />
+    <None Include="resources\statedata\texturestuff\pt.vert" />
+    <None Include="resources\statedata\texturestuff\quad.geom" />
+    <None Include="resources\statedata\texturestuff\s2.frag" />
+    <None Include="resources\statedata\texturestuff\hdr.frag" />
+    <None Include="resources\statedata\texturestuff\out.frag" />
+    <None Include="resources\statedata\misc\stuff.frag" />
+    <None Include="resources\statedata\misc\t2.frag" />
+    <None Include="resources\statedata\misc\mengertunnel.frag" />
+    <None Include="resources\statedata\texturestuff\test.png" />
+    <None Include="resources\statedata\texturestuff\simple.frag" />
+    <None Include="resources\statedata\misc\watercity.frag" />
+    <None Include="resources\statedata\texturestuff\gaussian2.frag" />
+    <None Include="resources\statedata\texturestuff\compderivmag.frag" />
+    <None Include="resources\statedata\texturestuff\thin1.frag" />
+    <None Include="resources\tools\hdr\guassianvert.frag" />
+    <None Include="abandoned\resources\tests\nbodystate\minimal.frag" />
+    <None Include="abandoned\resources\tests\nbodystate\minimal.geom" />
+    <None Include="abandoned\resources\tests\nbodystate\minimal.vert" />
+    <None Include="resources\common\shapes\quad.geom" />
+    <None Include="resources\builtins\null.vert" />
+    <None Include="resources\builtins\passthrough.vert" />
+    <None Include="abandoned\resources\tests\nbodystate\test.cl" />
+    <None Include="resources\tools\hdr\guassianhoriz.frag" />
+    <None Include="resources\builtins\glsllib\simplexnoise\noise2D.glsl" />
+    <None Include="resources\builtins\glsllib\simplexnoise\noise3D.glsl" />
+    <None Include="resources\builtins\glsllib\simplexnoise\noise4D.glsl" />
+    <None Include="resources\builtins\glsllib\simplexnoise\noisecommon.glsl" />
+    <None Include="abandoned\resources\tests\spheremarch\spheremarch.frag" />
+    <None Include="resources\tools\hdr\hdr.frag" />
+    <None Include="resources\common\font\fontrender.frag" />
+    <None Include="resources\tools\hdr\accupdate.frag" />
+    <None Include="abandoned\resources\statedata\de\minimal9.frag" />
+    <None Include="abandoned\resources\statedata\de\minimal9.geom" />
+    <None Include="abandoned\resources\statedata\de\minimal9.vert" />
+    <None Include="resources\tools\hdr\output.frag" />
+    <None Include="resources\common\shapes\cube.geom" />
+    <None Include="abandoned\resources\jackhammer\tortuga\tortuga.slcl" />
+    <None Include="abandoned\resources\jackhammer\tortuga\tortuga.frag" />
+    <None Include="abandoned\resources\jackhammer\tortuga\tortuga.vert" />
+    <None Include="abandoned\resources\jackhammer\catargas\catargas.slcl" />
+    <None Include="abandoned\resources\jackhammer\catargas\catargas.frag" />
+    <None Include="abandoned\resources\jackhammer\catargas\catargas.geom" />
+    <None Include="abandoned\resources\jackhammer\outro\outro.slcl" />
+    <None Include="abandoned\resources\jackhammer\outro\outro.frag" />
+    <None Include="abandoned\resources\statedata\dd\t0.cl" />
+    <None Include="abandoned\resources\statedata\de\particleengine.cl" />
+    <None Include="abandoned\resources\statedata\de\clline.cl" />
+    <None Include="abandoned\resources\statedata\de\minimal4.frag" />
+    <None Include="abandoned\resources\statedata\de\minimal4.geom" />
+    <None Include="abandoned\resources\statedata\de\minimal4.vert" />
+    <None Include="abandoned\resources\statedata\de\text.frag" />
+    <None Include="abandoned\resources\statedata\de\text.geom" />
+    <None Include="abandoned\resources\statedata\de\text.vert" />
+    <None Include="abandoned\resources\statedata\de\minimal7.frag" />
+    <None Include="abandoned\resources\statedata\de\minimal7.geom" />
+    <None Include="abandoned\resources\statedata\de\minimal7.vert" />
+    <None Include="abandoned\resources\statedata\de\minimal6.frag" />
+    <None Include="abandoned\resources\statedata\de\minimal6.geom" />
+    <None Include="abandoned\resources\statedata\de\minimal6.vert" />
+    <None Include="abandoned\resources\statedata\de\minimal5.frag" />
+    <None Include="abandoned\resources\statedata\de\minimal5.geom" />
+    <None Include="abandoned\resources\statedata\de\minimal5.vert" />
+    <None Include="resources\statedata\texturestuff\thin2.frag" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

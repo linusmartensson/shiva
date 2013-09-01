@@ -1,0 +1,50 @@
+#pragma once
+
+
+namespace shiva{
+
+	class state{ typedef shiva::state T;
+	protected:
+		std::vector<T*> sl;
+		std::vector<T*> add;
+		std::vector<T*> del;
+		
+		template<typename T2> void run(T2 t){std::for_each(sl.begin(),sl.end(), t);}
+		template<typename T2> void run(T2 t) const {std::for_each(sl.begin(),sl.end(), t);}
+	public:
+
+		state() {}
+		virtual ~state(){
+			std::for_each(add.begin(),add.end(), [&](T *t){delete t;});
+			std::for_each(del.begin(),del.end(), [&](T *t){
+				auto j = std::find(sl.begin(), sl.end(), t);
+				if(j!=sl.end()) sl.erase(j);
+				delete t;
+			});
+			add.clear(); del.clear();
+			run([](T *t){delete t;});
+		}
+
+		virtual void winput(bool up){run([&up](T *t){t->winput(up);});}
+		virtual void binput(int btn, bool state){run([&btn, &state](T *t){t->binput(btn,state);});}
+		virtual void minput(int x, int y){run([&x,&y](T *t){t->minput(x,y);});}
+		virtual void kinput(int k, bool s){run([&k,&s](T *t){t->kinput(k,s);});}
+		virtual void cinput(int k, bool s){run([&k,&s](T *t){t->cinput(k,s);});}
+		virtual void display(){run([](T *t){t->display();});}
+		virtual void update(){run([](T *t){t->update();});}
+		virtual void reshape(int w, int h){run([&w,&h](T *t){t->reshape(w,h);});}
+		virtual bool stateUpdate(){
+			bool r = false; 
+			std::for_each(add.begin(),add.end(), [&](T *t){sl.push_back(t);});
+			std::for_each(del.begin(),del.end(), [&](T *t){
+				auto j = std::find(sl.begin(), sl.end(), t);
+				if(j!=sl.end()) sl.erase(j);
+				delete t;
+			});
+			r |= del.size()>0||add.size()>0;
+			add.clear(); del.clear();
+			run([&r](T *t){r |= t->stateUpdate();}); 
+			return r;
+		}
+	};
+}

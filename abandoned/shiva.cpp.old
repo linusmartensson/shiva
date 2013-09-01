@@ -1,0 +1,122 @@
+#include"stdafx.h"
+#include"shiva.h"
+
+#pragma comment(lib, "opengl32.lib")
+#pragma comment(lib, "glu32.lib")
+
+namespace shiva {
+	void exit(int i){
+		std::cout<<"Press enter to exit...";
+		getchar();
+		::exit(i);
+	}
+	void core::stop(){
+		dying = true;
+	}
+	void core::reshape(int w, int h){
+		glViewport(0,0,w,h);
+		_width = w;
+		_height = h;
+		if(current){
+			current->reshape(w, h);
+		}
+	}
+	void core::swap(state *newstate){
+		if(safe==false){
+			Log::errlog()<<"FATAL ERROR: State change attempted outside stateUpdate()!"<<std::endl;
+			exit(1);
+		}
+		current = newstate;
+	}
+
+	bool core::stateUpdate(){
+		
+		bool ret;
+		glfwLockMutex(mutex);				
+		glfwSwapBuffers();					//Refresh screen, handle OS polling
+		
+		glFinish();
+		safe = true;
+		ret = current->stateUpdate() || changed;
+		changed = false;
+		rtime0 = time0;
+		rtime1 = time1;
+		time1 = GetTickCount();
+		frameTime = 0;
+
+		glFinish();						//The copying needs to be complete before wake-up.
+		safe = false;
+
+		glfwUnlockMutex(mutex);
+		glfwSignalCond(cond);
+		return ret;
+	}
+
+	void core::physicsTick(){
+		if(paused){
+			current->update();
+		} else {
+			int numLoops = 0;
+		
+			while((time1 - time0) > TICK_TIME && numLoops < MAX_LOOPS){
+				current->update();
+				time0 += TICK_TIME;
+				frameTime += TICK_TIME;
+				numLoops++;
+			}	
+			if((time1 - time0) > TICK_TIME)
+				time0 = time1 - TICK_TIME;
+		}
+		glFinish();
+	}
+
+	void GLFWCALL core::auxiliaryThread( void* arg ){
+		wglMakeCurrent(deviceContext, secondaryContext);
+		while(dying==0){
+			glfwLockMutex(mutex);
+			physicsTick();
+			glfwWaitCond(cond, mutex, GLFW_INFINITY);	
+			glfwUnlockMutex(mutex);
+		}
+		wglMakeCurrent(NULL, NULL);
+	}
+
+	void core::start(){
+		safe = false;	//Starting threaded environment. Swapping current state is now unsafe.
+
+		mutex = glfwCreateMutex();
+		cond = glfwCreateCond();
+		if(mutex == NULL || cond == NULL){
+			std::cout<<"Could not create mutex or cond, aborting."<<std::endl;
+			return;
+		}
+
+		thread = glfwCreateThread(core::auxiliaryThread, 0);
+		if(thread < 0){
+			std::cout<<"Could not create auxiliary thread, aborting."<<std::endl;
+			return;
+		}
+		std::cout<<"Shiva initialized! Rock on!"<<std::endl;
+		while(dying==0){
+			stateUpdate();
+			current->display();					//Render
+			Log::GLErrors("tail of current->display() (This probably indicates an error in display or update.)");
+		}
+
+		//Force physics loop to finish
+		glfwLockMutex(mutex);
+		glfwUnlockMutex(mutex);
+		glfwSignalCond(cond);
+
+		glfwWaitThread(thread, GLFW_WAIT);
+		glfwDestroyThread(thread);
+		glfwDestroyCond(cond);
+		glfwDestroyMutex(mutex);
+		safe = true;
+
+		shiva::state *c = current;
+		shiva::core::swap(0);
+		c = 0;
+
+	}
+}
